@@ -1,0 +1,22 @@
+const f="myshadow-inpage-container",m="myshadow-iframe-container";let i=null,h=null,s=null,t=null,a=!1,d=!1,o=!0;typeof chrome<"u"&&chrome.storage&&(chrome.storage.local.get(["isShadowEnabled"],e=>{o=e.isShadowEnabled!==!1}),chrome.storage.onChanged.addListener(e=>{e.isShadowEnabled&&(o=e.isShadowEnabled.newValue,o||w(!0))}));const w=(e=!1)=>{s&&(s.style.display="none"),l(e)},b=()=>{if(s||!o)return;s=document.createElement("div"),s.id=f,s.style.cssText=`
+    position: absolute; pointer-events: none; z-index: 2147483647;
+    width: 0; height: 0; display: none;
+  `;const e=s.attachShadow({mode:"open"}),n=document.createElement("style");n.textContent=`
+    .mys-shield {
+      width: 22px; height: 22px; background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border-radius: 6px; cursor: pointer; display: flex; align-items: center;
+      justify-content: center; box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); pointer-events: auto; border: none;
+      position: absolute; top: 50%; transform: translateY(-50%);
+    }
+    .mys-shield:hover { transform: translateY(-50%) scale(1.1); box-shadow: 0 6px 16px rgba(99, 102, 241, 0.6); }
+    .shield-svg { width: 13px; height: 13px; fill: white; }
+  `;const r=document.createElement("button");r.className="mys-shield",r.innerHTML='<svg class="shield-svg" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 6c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 12c-2.43 0-4.62-1.07-6.13-2.77C6.01 15.65 8.78 15 12 15c3.22 0 5.99.65 6.13 1.23C16.62 17.93 14.43 19 12 19z"/></svg>',r.onclick=u=>{u.preventDefault(),u.stopPropagation(),a=!1,d=!1,(t==null?void 0:t.style.display)==="block"?l(!0):y()},e.appendChild(n),e.appendChild(r),document.body.appendChild(s)},g=()=>{if(t||!o)return;t=document.createElement("div"),t.id=m,t.style.cssText=`
+    position: absolute; pointer-events: auto; z-index: 2147483647;
+    width: 280px; height: 360px; display: none; overflow: hidden;
+    transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    opacity: 0; transform: translateY(10px) scale(0.95);
+  `;const e=t.attachShadow({mode:"open"}),n=document.createElement("iframe");n.src=chrome.runtime.getURL("selector.html"),n.style.cssText=`
+    width: 100%; height: 100%; border: none; border-radius: 12px;
+    background: transparent;
+  `,e.appendChild(n),document.body.appendChild(t)},c=()=>{if(!i||!o||!s||!t)return;if(a){s.style.display="none",t.style.display="none",t.style.opacity="0";return}const e=i.getBoundingClientRect();if(e.width===0){s.style.display="none",l(!0);return}s.style.display="block",s.style.top=`${window.scrollY+e.top}px`,s.style.left=`${window.scrollX+e.left+e.width-32}px`,s.style.height=`${e.height}px`,t.style.display==="block"&&(window.innerHeight-e.bottom<380?t.style.top=`${window.scrollY+e.top-368}px`:t.style.top=`${window.scrollY+e.top+e.height+8}px`,t.style.left=`${window.scrollX+e.left+e.width-280}px`)},y=()=>{!t||!o||a||d||(t.style.display="block",setTimeout(()=>{t.style.opacity="1",t.style.transform="translateY(0) scale(1)"},10),h=i,c())},l=(e=!1)=>{if(t){if(e){t.style.display="none",t.style.opacity="0";return}t.style.opacity="0",t.style.transform="translateY(10px) scale(0.95)",setTimeout(()=>{t&&!a&&(t.style.display="none")},200)}};document.addEventListener("focusin",e=>{if(!o)return;const n=e.target;n.tagName==="INPUT"&&!["checkbox","radio","button","submit"].includes(n.type)&&(i!==n&&(d=!1),i=n,a=!1,b(),g(),c(),y())},!0);window.addEventListener("scroll",c,{passive:!0});window.addEventListener("resize",c,{passive:!0});const p=e=>{if(!o)return;const n=e.target;n.tagName==="INPUT"&&n===i&&(a=!0,s&&(s.style.display="none"),t&&(t.style.display="none",t.style.opacity="0"))};document.addEventListener("keydown",p,!0);document.addEventListener("input",p,!0);document.addEventListener("keypress",p,!0);document.addEventListener("mousedown",e=>{if(!o)return;const n=e.target;!(s!=null&&s.contains(n))&&!(t!=null&&t.contains(n))&&n!==i&&(l(!0),a=!1)},!0);window.addEventListener("message",e=>{if(o){if(e.data.type==="MYS_FILL"){const n=h||i;n&&(n.value=n.type==="password"?e.data.password:e.data.username,n.dispatchEvent(new Event("input",{bubbles:!0})),n.dispatchEvent(new Event("change",{bubbles:!0})),l(!0))}e.data.type==="MYS_CLOSE"&&(d=!0,l(!0))}});console.log("🛡️ MyShadow: Premium Content Engine Active");
