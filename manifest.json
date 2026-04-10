@@ -3,19 +3,16 @@
   "name": "MyShadow - Secure Vault",
   "version": "1.0.0",
   "description": "Professional, Zero-Knowledge personal data vault with intelligent In-page Mini-Vault.",
-  "permissions": [
-    "storage",
-    "unlimitedStorage",
-    "tabs",
-    "activeTab",
-    "scripting"
-  ],
+  "permissions": ["storage", "unlimitedStorage", "tabs", "activeTab", "scripting"],
   "icons": {
     "16": "icon16.png",
     "48": "icon48.png",
     "128": "icon128.png"
   },
-  "host_permissions": ["<all_urls>", "https://my-shadow.vercel.app/*"],
+  "host_permissions": [
+    "<all_urls>",
+    "https://my-shadow.vercel.app/*"
+  ],
   "action": {
     "default_popup": "index.html",
     "default_title": "MyShadow"
