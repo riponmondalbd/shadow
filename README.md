@@ -79,3 +79,7 @@ The extension integrates securely with your central vault application. Ensure yo
 ---
 
 **Developed with ❤️ for secure browsing.**
+
+---
+
+Developed by [Ripon](https://riponmondalbd.vercel.app)
