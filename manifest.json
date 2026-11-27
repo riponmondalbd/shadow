@@ -1,21 +1,17 @@
 {
   "manifest_version": 3,
-  "name": "MyShadow - Secure Vault",
-  "version": "1.0.0",
-  "description": "Professional, Zero-Knowledge personal data vault with intelligent In-page Mini-Vault.",
-  "permissions": ["storage", "unlimitedStorage", "tabs", "activeTab", "scripting"],
+  "name": "MyShadow - Standalone Secure Vault",
+  "version": "2.0.0",
+  "description": "100% Standalone Zero-Knowledge Personal Vault with AES-256-GCM encryption, In-Page Autofill, and Auto-Backup.",
+  "permissions": ["storage", "unlimitedStorage", "downloads", "alarms", "activeTab", "scripting"],
   "icons": {
     "16": "icon16.png",
     "48": "icon48.png",
     "128": "icon128.png"
   },
-  "host_permissions": [
-    "<all_urls>",
-    "https://my-shadow.vercel.app/*"
-  ],
   "action": {
     "default_popup": "index.html",
-    "default_title": "MyShadow"
+    "default_title": "MyShadow Vault"
   },
   "background": {
     "service_worker": "background.js",
@@ -30,7 +26,7 @@
   ],
   "web_accessible_resources": [
     {
-      "resources": ["selector.html", "assets/*"],
+      "resources": ["selector.html", "icon48.png", "icon128.png", "assets/*"],
       "matches": ["<all_urls>"]
     }
   ],
